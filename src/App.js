@@ -38,7 +38,38 @@ class App extends Component {
 		})
 
 		this.setState({items: items});
-	}
+  }
+  
+  componentDidMount(){
+    var checkboxes = document.getElementsByClassName("custom--select");
+    var all = document.getElementById("all");
+
+    window.onchange = function(){
+
+      var ln = 0;
+    
+      for(var i=0; i< checkboxes.length; i++) {
+    
+        if(checkboxes[i].checked){
+    
+          ln++
+    
+        }
+    
+      }
+    
+      if(checkboxes.length == ln){
+    
+        all.checked = true;
+    
+      } else {
+    
+        all.checked = false;
+    
+      }
+    
+    }
+  }
 
 	render() {
 		return (
@@ -48,7 +79,7 @@ class App extends Component {
 				</header>
 				<section className="content">
 					<div>
-						<input type="checkbox" onChange={this.handleAllChecked} value="checkedall" /> (Not) All
+						<input id="all" type="checkbox" onChange={this.handleAllChecked} value="checkAll" /> (Not) All
 						{
 							this.state.items.map((item, index) => {
 								return (<Checkbox key={index} handleCheckElement={this.handleCheckElement} {...item} />)
